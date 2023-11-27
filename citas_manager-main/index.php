@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Raleway:wght@500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="./style.css">
-        <title>Document</title>
+        <title>Citas Managger</title>
 </head>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <body>
@@ -27,16 +26,16 @@
           <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="./registrarse.php">¿Tienes un establecimiento?</a>
+                    <a class="nav-link" href="registrarse.php">¿Tienes un establecimiento?</a>
                 </li>
                 <li class="nav-item"  type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <a class="nav-link" href="./inicio_sesion.php">Inicia Sesión</a>
+                    <a class="nav-link" href="inicio_sesion.php">Inicia Sesión</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./registrarse.php">Registrarse</a>
+                    <a class="nav-link" href="registrarse.php">Registrarse</a>
                 </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="./inicio_sesion.php">Agendar Cita.</a>
+                      <a class="nav-link" href="inicio_sesion.php">Agendar Cita.</a>
                     </li>
             </ul>
           </div>

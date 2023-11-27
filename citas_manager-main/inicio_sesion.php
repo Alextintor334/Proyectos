@@ -1,50 +1,8 @@
 <?php
 session_start();
-if (isset($_POST['login'])) {
-    require_once 'dbconexion.php';
-    $username = $_POST['username'];    
-    $contra = $_POST['contra'];
-    $query = $cnnPDO->prepare('SELECT * from usuarios_reg WHERE username=:username and password=:contra');
-    $query->bindParam(':username', $username);
-    $query->bindParam(':contra', $contra);
-    $query->execute();
-    $count = $query->rowCount();
-    $campo = $query->fetch();
-    if ($count) {
-        $_SESSION['nombre'] = $campo['nombre'];
-        $_SESSION['username'] = $campo['username'];
-        $_SESSION['email'] = $campo['email'];
-        $_SESSION['contra'] = $campo['password'];
-        $_SESSION['act'] = $campo['activo'];
-    
-        // Determinar la redirección según el rol del usuario
-        if ($username == 'admin') {
-            header('Location: vista_admin.php'); 
-            exit();
-        } else {
-            $_SESSION['rol'] = 'admin';
-            
-            if ($username == 'dueno') {
-                header('Location: vista_dueno.php');
-                exit();
-            } else if ($username == 'cliente') {
-                header('Location: vista_cliente.php');
-                exit();
-            } else {
-                // Otro rol no definido
-                echo "Rol no válido.";
-            }
-        }
-    } else {
-        echo "
-        <div class='alert alert-danger' role='alert'>
-          <b>El Usuario o el Password Son Incorrectos</b>
-        </div>";
-    }
-}
-
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +36,7 @@ if (isset($_POST['login'])) {
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="./registrarse.php">Registrarse</a>
+                    <a class="nav-link" href="registrarse.php">Registrarse</a>
                 </li>
                 
             </ul>
@@ -92,10 +50,53 @@ if (isset($_POST['login'])) {
 <div class="box_registro">
       <div class="login form">
             <div class="wrapper bg-white">
-            <h5 style="text-align: center;" class="subtitle" id="exampleModalLabel">Inicia sesión para poder agendar tu cita y disfrutar de todos los beneficios que ofrecemos.</h5>
+            <h5 style="text-align: center;" class="subtitle" id="exampleModalLabel">Inicia sesión para poder agendar tu cita.</h5>
                       
                                     <div class="h4 text-muted text-center pt-2">Ingresa Tus Datos</div>
-                                    <form class="pt-3" method="post"> 
+                                    <form class="pt-3" method="POST">
+                                        
+                                    <?php
+                                        if (isset($_POST['login'])) {
+                                            require_once 'dbconexion.php';
+                                            $username = $_POST['username'];
+                                            $contra = $_POST['contra'];
+                                            $query = $cnnPDO->prepare('SELECT * from usuarios_reg WHERE username=:username and password=:contra');
+                                            $query->bindParam(':username', $username);
+                                            $query->bindParam(':contra', $contra);
+                                            $query->execute();
+                                            $count = $query->rowCount();
+                                            $campo = $query->fetch();
+                                            if ($count) {
+                                                $_SESSION['nombre'] = $campo['nombre'];
+                                                $_SESSION['username'] = $campo['username'];
+                                                $_SESSION['email'] = $campo['email'];
+                                                $_SESSION['contra'] = $campo['password'];
+                                                $_SESSION['act'] = $campo['activo'];
+                                                $_SESSION['rol'] = $campo['rol'];
+                                        
+                                                // Determinar la redirección según el rol del usuario almacenado en la base de datos
+                                                if ($_SESSION['rol'] === 'admin') {
+                                                    header('Location: vista_admin.php');
+                                                    exit();
+                                                } else if ($_SESSION['rol'] === 'dueno') {
+                                                    header('Location: vista_dueno.php');
+                                                    exit();
+                                                } else if ($_SESSION['rol'] === 'cliente') {
+                                                    header('Location: vista_cliente.php');
+                                                    exit();
+                                                } else {
+                                                    // Otro rol no definido
+                                                    echo "Rol no válido.";
+                                                }
+                                            } else {
+                                                echo "
+                                                <div class='alert alert-danger' role='alert'>
+                                                  <b>El Usuario o la Contraseña Son Incorrectos</b>
+                                                </div>";
+                                            }
+                                        }
+                                    ?>
+
                                         <div class="form-group py-2">
                                             <div class="input-field"> <span class="far fa-user p-2"></span> <input name="username" type="text" placeholder="Usuario:" required class="input"> </div>
                                         </div>
@@ -104,7 +105,7 @@ if (isset($_POST['login'])) {
                                         </div>
                                         <div class="d-flex align-items-start">
                                         </div> <button class="btn btn-block text-center my-3" type="submit" name="login">Iniciar Sesión</button>
-                                        <div class="text-center pt-3 text-muted">¿No tienes una cuenta aún? <a href="/registarse.php">Registrarse</a></div>
+                                        <div class="text-center pt-3 text-muted">¿No tienes una cuenta aún? <a href="registrarse.php">Registrarse</a></div>
                                     </form>
                                 </div>
                             </div>

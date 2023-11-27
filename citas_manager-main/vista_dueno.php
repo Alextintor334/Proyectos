@@ -1,3 +1,13 @@
+<?php
+ session_start();
+ require_once 'dbconexion.php';
+
+ if (isset($_POST['cerrar_sesion'])){
+  session_destroy();
+  header('location:index.php');
+ }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,20 +30,21 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="./index.php">
             <img class="icon_logo" width="32" height="32" src="https://img.icons8.com/windows/32/000000/baby-calendar.png" alt="baby-calendar"/>
-                    CitaManager
+            CitaManager
         </a>
-              
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="">Bienvenido</a>
-                </li>
-                
-            </ul>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Ver perfil
-                </button>
-          </div>
+        
+        <div class="text-white">
+    <h3><?php echo $_SESSION['username']; ?><br><?php echo $_SESSION['email']; ?></h3>
+</div>
+
+
+
+        <div class="collapse navbar-collapse justify-content-end">
+            <a href="modal_perfil.php" class="btn btn-outline-secondary me-2">Ver perfil</a>
+            <form method="POST">
+                <button type="submit" class="btn btn-outline-danger" name="cerrar_sesion">Cerrar sesión</button>
+            </form>
+        </div>
     </div>
 </nav> 
 
@@ -41,22 +52,22 @@
     <div class="container mt-5 mt-4 d-flex flex-column justify-content-center align-items-center">
         <div class="row">
             <div class="col-md-4">
-                <img src="./images/sector_salud.jpg" alt="sector salud" class="img-top circular-image">
+                <img src="./images/sector_salud.webp" alt="sector salud" class="img-top circular-image">
                     <h5>Sector Salud</h5>
-                        <button class="btn btn-dark">Agendar cita</button>
+                        <a href="registra_establecimiento.php" class="btn btn-dark">Agendar cita</a>
             </div>
 
             <div class="col-md-4">
-                <img src="./images/barber.jpg" alt="estilistas" class="img-top circular-image">
+                <img src="./images/barber.webp" alt="estilistas" class="img-top circular-image">
                     <h5>Barber's Y Estilistas</h5>
-                            <button class="btn btn-dark">Agendar Cita</button>
-            </div>
+                    <a href="registra_establecimiento.php" class="btn btn-dark">Agendar cita</a>            
+                </div>
 
             <div class="col-md-4">
-                <img src="./images/restaurantes.jpg" alt="restaurantes" class="img-top circular-image">
+                <img src="./images/restaurantes.webp" alt="restaurantes" class="img-top circular-image">
                     <h5>Restaurantes</h5>
-                            <button class="btn btn-dark">Agendar citas</button>
-                    </div>
+                    <a href="registra_establecimiento.php" class="btn btn-dark">Agendar cita</a>                    
+                </div>
             </div>
         </div>
     </div>
@@ -81,7 +92,7 @@
 </div>
 
 <?php
-include('./footer.php');
+include('footer.php');
 ?>
 
 </body>
