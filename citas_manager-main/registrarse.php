@@ -36,7 +36,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                
                         <li class="nav-item"  type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            <a class="nav-link" href="./inicio_sesion.php">Inicia Sesión</a>
+                            <a class="nav-link" href="inicio_sesion.php">Inicia Sesión</a>
                         </li>
                         
             </ul>
@@ -52,7 +52,7 @@
                   <div class="h4 text-muted text-center pt-2">Ingresa Tus Datos</div>
                         <form class="pt-2" method="POST">
 
-                        <?php
+<?php
 require_once './dbconexion.php';
 
 # Inicia Código de REGISTRAR
@@ -168,7 +168,7 @@ unset($cnnPDO);
                               <div class="d-flex align-items-start">
                                      </div> <button class="btn btn-block text-center my-3" name="registrar" type="submit">Registrarme</button>
                                     
-                                    <div class="text-center pt-1 text-muted">¿Ya tienes cuenta?<a href="./index.php">Iniciar Sesion</a></div>
+                                    <div class="text-center pt-1 text-muted">¿Ya tienes cuenta?<a href="inicio_sesion.php">Iniciar Sesion</a></div>
 
                                     </form> 
                                 

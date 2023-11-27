@@ -1,4 +1,16 @@
-
+<?php
+ session_start();
+ require_once 'dbconexion.php';
+ 
+ if($_SESSION['act'] =="no"){
+  header('location:index.php');
+exit();
+}
+ if (isset($_POST['cerrar_sesion'])){
+  session_destroy();
+  header('location:index.php');
+ }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,38 +38,38 @@
         </a>
         
         <div class="text-white">
-            <h3><?php echo $_SESSION['usuario']; ?></h3>
-        </div>
-        <div class="text-white">
-            <h3><?php echo $_SESSION['correo']; ?></h3>
-        </div>
+    <h3><?php echo $_SESSION['username']; ?><br><?php echo $_SESSION['email']; ?></h3>
+</div>
+
+
 
         <div class="collapse navbar-collapse justify-content-end">
-            <button type="button" class="btn btn-outline-secondary me-2">Ver perfil</button>
-            <button type="button" class="btn btn-outline-danger">Cerrar sesión</button>
+            <a href="modal_perfil.php" class="btn btn-outline-secondary me-2">Ver perfil</a>
+            <form method="POST">
+                <button type="submit" class="btn btn-outline-danger" name="cerrar_sesion">Cerrar sesión</button>
+            </form>
         </div>
     </div>
-</nav>
-
+</nav><br><br><br><br><br>
     <div class="container mt-5 mb-9 d-flex flex-column justify-content-center align-items-center">
+        <h2>Agenda cita en los diferentes tipos de servicios</h2><br>
         <div style="text-align: center;" class="row">
             <div class="col-md-4">
-                <img src="./images/sector_salud.webp" alt="sector salud" class="img-top circular-image">
-                    <h5>Sector Salud</h5>
-                        <button class="btn btn-dark">Agendar cita</button>
+                <img src="./images/sector_salud.webp" alt="sector salud" class="img-top circular-image"><br><br>
+                <h5>Sector Salud</h5><br>
+                <a href="establecimientos_salud.php" class="btn btn-dark">Ver establecimientos</a>     
             </div>
 
             <div class="col-md-4">
-                <img src="./images/barber.webp" alt="estilistas" class="img-top circular-image">
-                    <h5>Barber's Y Estilistas</h5>
-                            <button class="btn btn-dark">Agendar Cita</button>
+                <img src="./images/barber.webp" alt="estilistas" class="img-top circular-image"><br><br>
+                <h5>Barber's Y Estéticas</h5><br>
+                <a href="#" class="btn btn-dark">Ver establecimientos</a>     
             </div>
 
             <div class="col-md-4">
-                <img src="./images/restaurantes.webp" alt="restaurantes" class="img-top circular-image">
-                    <h5>Restaurantes</h5>
-                            <button class="btn btn-dark">Agendar citas</button>
-                    </div>
+                <img src="./images/restaurantes.webp" alt="restaurantes" class="img-top circular-image"><br><br>
+                <h5>Restaurantes</h5><br>
+                <a href="#" class="btn btn-dark">Ver establecimientos</a>     
             </div>
         </div>
     </div>

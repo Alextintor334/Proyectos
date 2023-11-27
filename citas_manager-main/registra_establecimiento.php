@@ -1,3 +1,53 @@
+<?php require_once 'dbconexion.php'?>;
+
+<?php
+    # Código de REGISTRAR
+if (isset($_POST['registrar'])) {
+
+  $nombre = $_POST['nombre'];
+  $direccion = $_POST['direccion'];
+  $descripcion = $_POST['descripcion'];
+  $cita = $_POST['cita'];
+  $horarios = $_POST['horarios'];
+  $correo = $_POST['correo'];
+  $telefono = $_POST['telefono'];
+
+  $size = getimagesize($_FILES["imagen"]["tmp_name"]);
+
+      $cargarImagen = $_FILES['imagen']['tmp_name'];
+      $imagen = fopen($cargarImagen,'rb');
+
+  if (!empty($nombre) && !empty($direccion) && !empty($descripcion) && (!empty($cita) && !empty($horarios) && !empty($correo) && !empty($telefono))) 
+  {
+    $sql = $cnnPDO->prepare('INSERT INTO registro (nombre, direccion, descripcion, cita, horarios, correo, telefono, imagen) VALUES (:nombre, :direccion, :descripcion, :cita, :horarios, :correo, :telefono, :imagen)');
+    $sql->bindParam(':nombre', $nombre);
+    $sql->bindParam(':direccion', $direccion);
+    $sql->bindParam(':descripcion', $descripcion);
+    $sql->bindParam(':cita', $cita);
+    $sql->bindParam(':horarios', $horarios);
+    $sql->bindParam(':correo', $correo);
+    $sql->bindParam(':telefono', $telefono);
+    $sql->bindParam(':imagen',$imagen, PDO::PARAM_LOB);
+    $sql->execute();
+    unset($sql);
+    unset($cnnPDO);
+  }
+}
+     
+# Termina Código de REGISTRAR
+  ?>
+
+<?php
+ session_start();
+ require_once 'dbconexion.php';
+
+ if (isset($_POST['cerrar_sesion'])){
+  session_destroy();
+  header('location:index.php');
+ }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,20 +66,25 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="./index.php">
-                <img class="icon_logo" width="32" height="32" src="https://img.icons8.com/windows/32/000000/baby-calendar.png" alt="baby-calendar"/>
-                    CitaManager
-            </a>
-              
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="./index.php">Inicio</a>
-                </li>
-            </ul>
-          </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="./index.php">
+            <img class="icon_logo" width="32" height="32" src="https://img.icons8.com/windows/32/000000/baby-calendar.png" alt="baby-calendar"/>
+            CitaManager
+        </a>
+        
+        <div class="text-white">
+    <h3><?php echo $_SESSION['username']; ?><br><?php echo $_SESSION['email']; ?></h3>
+</div>
+
+
+
+        <div class="collapse navbar-collapse justify-content-end">
+            <a href="modal_perfil.php" class="btn btn-outline-secondary me-2">Ver perfil</a>
+            <form method="POST">
+                <button type="submit" class="btn btn-outline-danger" name="cerrar_sesion">Cerrar sesión</button>
+            </form>
         </div>
+    </div>
 </nav>   
 <div class="box_registro_establecimiento">
 <div class="container">
@@ -50,7 +105,7 @@
 
       <div class="input-field mt-5 mb-5"> <span class="far my-4 mb-4 p-2"></span> <input name="descripcion" type="text"  placeholder="Descripcion Del Establecimiento:"> </div>
 
-      <div class="input-field mt-5 mb-5"> <span class="far p-2"></span> <input name="tipo cita" type="text"  placeholder="Tipo  De Cita:" > </div>
+      <div class="input-field mt-5 mb-5"> <span class="far p-2"></span> <input name="tipo cita" type="text"  placeholder="Tipo De Cita:" > </div>
     </div>
     
     <div class="col">

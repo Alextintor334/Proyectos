@@ -39,10 +39,13 @@
         <div class="text-white">
             <h3><?php echo $_SESSION['email']; ?></h3>
         </div>
-              
-        <div class="collapse navbar-collapse justify-content-end">
-            <button type="button" class="btn btn-outline-danger">Cerrar sesión</button>
-        </div>
+
+        <form method="POST">
+            <div class="collapse navbar-collapse justify-content-end">
+                <button type="submit" name="cerrar_sesion" class="btn btn-outline-danger">Cerrar sesión</button>
+            </div>   
+        </form>      
+
     </div>
 </nav>
 
